@@ -89,7 +89,7 @@ public class GemFireVectorStoreProperties {
 	 *
 	 * To specify sslEnabled, use "spring.ai.vectorstore.gemfire.sslEnabled";
 	 */
-	private boolean sslEnabled = false;
+	private boolean sslEnabled = GemFireVectorStoreConfig.DEFAULT_SSL_ENABLED;
 
 	public int getBeamWidth() {
 		return beamWidth;
