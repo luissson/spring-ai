@@ -53,10 +53,6 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(GemFireVectorStore.class);
 
-	private static final int DEFAULT_PORT = 8080;
-
-	private static final String DEFAULT_HOST = "localhost";
-
 	private static final String DEFAULT_URI = "http{ssl}://{host}:{port}/gemfire-vectordb/v1/indexes";
 
 	private static final String EMBEDDINGS = "/embeddings";
@@ -64,22 +60,6 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 	private final WebClient client;
 
 	private final EmbeddingClient embeddingClient;
-
-	// Create Index DEFAULT Values
-
-	private static final String[] DEFAULT_FIELDS = new String[] {};
-
-	private static final String DEFAULT_SIMILARITY_FUNCTION = "COSINE";
-
-	private static final int DEFAULT_BEAM_WIDTH = 100;
-
-	private static final int MAX_BEAM_WIDTH = 3200;
-
-	private static final int DEFAULT_BUCKETS = 0;
-
-	private static final int DEFAULT_MAX_CONNECTIONS = 16;
-
-	private static final int MAX_CONNECTIONS = 512;
 
 	private static final String DOCUMENT_FIELD = "document";
 
@@ -115,87 +95,6 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 		return !client.get().uri("/" + indexName).exchange().block().statusCode().is4xxClientError();
 	}
 
-	public static final class GemFireVectorStoreConfig {
-
-		private String host = DEFAULT_HOST;
-
-		private int port = DEFAULT_PORT;
-
-		private boolean sslEnabled = false;
-
-		private String indexName;
-
-		private int beamWidth = DEFAULT_BEAM_WIDTH;
-
-		private int maxConnections = DEFAULT_MAX_CONNECTIONS;
-
-		private String vectorSimilarityFunction = DEFAULT_SIMILARITY_FUNCTION;
-
-		private String[] fields = DEFAULT_FIELDS;
-
-		private int buckets = DEFAULT_BUCKETS;
-
-		public GemFireVectorStoreConfig setHost(String host) {
-			Assert.hasText(host, "host must have a value");
-			this.host = host;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setPort(int port) {
-			Assert.isTrue(port > 0, "port must be positive");
-			this.port = port;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setSslEnabled(boolean sslEnabled) {
-			this.sslEnabled = sslEnabled;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setIndexName(String indexName) {
-			Assert.hasText(indexName, "indexName must have a value");
-			this.indexName = indexName;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setBeamWidth(int beamWidth) {
-			Assert.isTrue(beamWidth > 0, "beamWidth must be positive");
-			Assert.isTrue(beamWidth <= MAX_BEAM_WIDTH, "beamWidth must be less than or equal to " + MAX_BEAM_WIDTH);
-			this.beamWidth = beamWidth;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setMaxConnections(int maxConnections) {
-			Assert.isTrue(maxConnections > 0, "maxConnections must be positive");
-			Assert.isTrue(maxConnections <= MAX_CONNECTIONS,
-					"maxConnections must be less than or equal to " + MAX_CONNECTIONS);
-			this.maxConnections = maxConnections;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setBuckets(int buckets) {
-			Assert.isTrue(buckets >= 0, "bucket must be 1 or more");
-			this.buckets = buckets;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setVectorSimilarityFunction(String vectorSimilarityFunction) {
-			Assert.hasText(vectorSimilarityFunction, "vectorSimilarityFunction must have a value");
-			this.vectorSimilarityFunction = vectorSimilarityFunction;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig setFields(String[] fields) {
-			this.fields = fields;
-			return this;
-		}
-
-		public GemFireVectorStoreConfig() {
-
-		}
-
-	}
-
 	public GemFireVectorStore(GemFireVectorStoreConfig config, EmbeddingClient embeddingClient) {
 		Assert.notNull(config, "GemFireVectorStoreConfig must not be null");
 		Assert.notNull(embeddingClient, "EmbeddingClient must not be null");
@@ -219,19 +118,19 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 		private String indexName;
 
 		@JsonProperty("beam-width")
-		private int beamWidth = DEFAULT_BEAM_WIDTH;
+		private int beamWidth;
 
 		@JsonProperty("max-connections")
-		private int maxConnections = DEFAULT_MAX_CONNECTIONS;
+		private int maxConnections;
 
 		@JsonProperty("vector-similarity-function")
-		private String vectorSimilarityFunction = DEFAULT_SIMILARITY_FUNCTION;
+		private String vectorSimilarityFunction;
 
 		@JsonProperty("fields")
-		private String[] fields = DEFAULT_FIELDS;
+		private String[] fields;
 
 		@JsonProperty("buckets")
-		private int buckets = DEFAULT_BUCKETS;
+		private int buckets;
 
 		public CreateRequest() {
 		}

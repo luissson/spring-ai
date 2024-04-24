@@ -18,6 +18,7 @@ package org.springframework.ai.autoconfigure.vectorstore.gemfire;
 
 import org.springframework.ai.embedding.EmbeddingClient;
 import org.springframework.ai.vectorstore.GemFireVectorStore;
+import org.springframework.ai.vectorstore.GemFireVectorStoreConfig;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -45,7 +46,7 @@ public class GemFireVectorStoreAutoConfiguration {
 	@ConditionalOnMissingBean
 	public GemFireVectorStore vectorStore(EmbeddingClient embeddingClient, GemFireVectorStoreProperties properties,
 			GemFireConnectionDetails gemFireConnectionDetails) {
-		var config = new GemFireVectorStore.GemFireVectorStoreConfig();
+		var config = new GemFireVectorStoreConfig();
 
 		config.setHost(gemFireConnectionDetails.getHost())
 			.setPort(gemFireConnectionDetails.getPort())
@@ -54,7 +55,8 @@ public class GemFireVectorStoreAutoConfiguration {
 			.setMaxConnections(properties.getMaxConnections())
 			.setBuckets(properties.getBuckets())
 			.setVectorSimilarityFunction(properties.getVectorSimilarityFunction())
-			.setFields(properties.getFields());
+			.setFields(properties.getFields())
+			.setSslEnabled(properties.isSslEnabled());
 		return new GemFireVectorStore(config, embeddingClient);
 	}
 

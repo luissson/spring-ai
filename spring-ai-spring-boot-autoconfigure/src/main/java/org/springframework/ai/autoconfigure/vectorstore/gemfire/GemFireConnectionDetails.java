@@ -25,4 +25,5 @@ public interface GemFireConnectionDetails extends ConnectionDetails {
 	String getHost();
 
 	int getPort();
+
 }
