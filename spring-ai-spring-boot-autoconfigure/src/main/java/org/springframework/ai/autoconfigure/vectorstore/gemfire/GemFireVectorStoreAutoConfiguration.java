@@ -31,23 +31,51 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 @ConditionalOnClass({ GemFireVectorStore.class, EmbeddingClient.class })
 @EnableConfigurationProperties(GemFireVectorStoreProperties.class)
-@ConditionalOnProperty(prefix = "spring.ai.vectorstore.gemfire", value = { "index-name" })
+@ConditionalOnProperty(prefix = "spring.ai.vectorstore.gemfire", value = { "indexName" })
 public class GemFireVectorStoreAutoConfiguration {
 
 	@Bean
+	@ConditionalOnMissingBean(GemFireConnectionDetails.class)
+	GemFireVectorStoreAutoConfiguration.PropertiesGemFireConnectionDetails gemfireConnectionDetails(
+			GemFireVectorStoreProperties properties) {
+		return new GemFireVectorStoreAutoConfiguration.PropertiesGemFireConnectionDetails(properties);
+	}
+
+	@Bean
 	@ConditionalOnMissingBean
-	public GemFireVectorStore vectorStore(EmbeddingClient embeddingClient, GemFireVectorStoreProperties properties) {
+	public GemFireVectorStore vectorStore(EmbeddingClient embeddingClient, GemFireVectorStoreProperties properties,
+			GemFireConnectionDetails gemFireConnectionDetails) {
 		var config = new GemFireVectorStore.GemFireVectorStoreConfig();
 
-		config.setHost(properties.getHost())
+		config.setHost(gemFireConnectionDetails.getHost())
 			.setIndexName(properties.getIndexName())
-			.setPort(properties.getPort())
+			.setPort(gemFireConnectionDetails.getPort())
 			.setBeamWidth(properties.getBeamWidth())
 			.setMaxConnections(properties.getMaxConnections())
 			.setBuckets(properties.getBuckets())
 			.setVectorSimilarityFunction(properties.getVectorSimilarityFunction())
 			.setFields(properties.getFields());
 		return new GemFireVectorStore(config, embeddingClient);
+	}
+
+	private static class PropertiesGemFireConnectionDetails implements GemFireConnectionDetails {
+
+		private final GemFireVectorStoreProperties properties;
+
+		PropertiesGemFireConnectionDetails(GemFireVectorStoreProperties properties) {
+			this.properties = properties;
+		}
+
+		@Override
+		public String getHost() {
+			return this.properties.getHost();
+		}
+
+		@Override
+		public int getPort() {
+			return this.properties.getPort();
+		}
+
 	}
 
 }
