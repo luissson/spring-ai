@@ -44,13 +44,13 @@ public class GemFireVectorStoreProperties {
 
 	/**
 	 * The name of the index in the GemFire. To specify a custom index, use
-	 * "spring.ai.vectorstore.gemfire.index";
+	 * "spring.ai.vectorstore.gemfire.index-name";
 	 */
 	private String indexName;
 
 	/**
 	 * The beam width for similarity queries. Default value is {@code 100}. To specify a
-	 * custom beamWidth, use "spring.ai.vectorstore.gemfire.beamwidth";
+	 * custom beamWidth, use "spring.ai.vectorstore.gemfire.beamWidth";
 	 */
 	private int beamWidth = 100;
 
@@ -77,7 +77,8 @@ public class GemFireVectorStoreProperties {
 
 	/**
 	 * The number of buckets to use for partitioning the data. Default value is {@code 0}.
-	 * To specify custom buckets, use "spring.ai.vectorstore.gemfire.bucket";
+         *
+	 * To specify custom buckets, use "spring.ai.vectorstore.gemfire.buckets";
 	 *
 	 */
 	private int buckets = 0;

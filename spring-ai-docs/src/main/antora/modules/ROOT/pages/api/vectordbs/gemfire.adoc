@@ -51,7 +51,7 @@ Add these dependencies to your project:
 ----
 <dependency>
     <groupId>org.springframework.ai</groupId>
-    <artifactId>spring-ai-gemfire</artifactId>
+    <artifactId>spring-ai-gemfire-store</artifactId>
 </dependency>
 ----
 
@@ -156,7 +156,7 @@ You can use the following properties in your Spring Boot configuration to custom
 
 |`spring.ai.vectorstore.gemfire.host`|localhost
 |`spring.ai.vectorstore.gemfire.port`|8080
-|`spring.ai.vectorstore.gemfire.indexName`|spring-ai-gemfire
+|`spring.ai.vectorstore.gemfire.indexName`|spring-ai-gemfire-store
 |`spring.ai.vectorstore.gemfire.beamWidth`|100
 |`spring.ai.vectorstore.gemfire.maxConnections`|16
 |`spring.ai.vectorstore.gemfire.vectorSimilarityFunction`|COSINE

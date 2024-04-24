@@ -68,9 +68,9 @@ class GemFireVectorStoreAutoConfigurationIT {
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 		.withConfiguration(AutoConfigurations.of(GemFireVectorStoreAutoConfiguration.class))
 		.withUserConfiguration(Config.class)
-		.withPropertyValues("spring.ai.vectorstore.gemfire.indexName=spring-ai-index")
+		.withPropertyValues("spring.ai.vectorstore.gemfire.index-name=" + INDEX_NAME)
 		.withPropertyValues("spring.ai.vectorstore.gemfire.host=localhost")
-		.withPropertyValues("spring.ai.vectorstore.gemfire.port=9090");
+		.withPropertyValues("spring.ai.vectorstore.gemfire.port=" + HTTP_SERVICE_PORT);
 
 	@BeforeAll
 	public static void startGemFireCluster() {

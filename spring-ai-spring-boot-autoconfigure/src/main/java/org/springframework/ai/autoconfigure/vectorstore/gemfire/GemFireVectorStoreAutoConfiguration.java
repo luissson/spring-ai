@@ -48,8 +48,8 @@ public class GemFireVectorStoreAutoConfiguration {
 		var config = new GemFireVectorStore.GemFireVectorStoreConfig();
 
 		config.setHost(gemFireConnectionDetails.getHost())
-			.setIndexName(properties.getIndexName())
 			.setPort(gemFireConnectionDetails.getPort())
+			.setIndexName(properties.getIndexName())
 			.setBeamWidth(properties.getBeamWidth())
 			.setMaxConnections(properties.getMaxConnections())
 			.setBuckets(properties.getBuckets())
@@ -63,6 +63,7 @@ public class GemFireVectorStoreAutoConfiguration {
 		private final GemFireVectorStoreProperties properties;
 
 		PropertiesGemFireConnectionDetails(GemFireVectorStoreProperties properties) {
+
 			this.properties = properties;
 		}
 

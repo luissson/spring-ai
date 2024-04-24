@@ -34,7 +34,7 @@
 
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-gemfire</artifactId>
+            <artifactId>spring-ai-gemfire-store</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
