@@ -47,8 +47,6 @@ import org.springframework.context.annotation.Configuration;
 
 class GemFireVectorStoreAutoConfigurationIT {
 
-	public static final String INDEX_NAME = "spring-ai-index";
-
 	private static GemFireCluster gemFireCluster;
 
 	private static final int HTTP_SERVICE_PORT = 9090;

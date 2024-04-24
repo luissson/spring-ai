@@ -77,7 +77,7 @@ public class GemFireVectorStoreProperties {
 
 	/**
 	 * The number of buckets to use for partitioning the data. Default value is {@code 0}.
-	 * To specify custom bucket, use "spring.ai.vectorstore.gemfire.bucket";
+	 * To specify custom buckets, use "spring.ai.vectorstore.gemfire.bucket";
 	 *
 	 */
 	private int buckets = 0;
