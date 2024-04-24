@@ -41,6 +41,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 
 /**
@@ -92,7 +93,15 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 	}
 
 	public boolean indexExists() {
-		return !client.get().uri("/" + indexName).exchange().block().statusCode().is4xxClientError();
+		return client.get().uri("/" + indexName).exchangeToMono(response -> {
+			if (response.statusCode().is2xxSuccessful()) {
+				return Mono.just("Index found");
+			}
+			else {
+				return Mono.just("Index not found");
+			}
+		}).block().equals("Index found");
+
 	}
 
 	public GemFireVectorStore(GemFireVectorStoreConfig config, EmbeddingClient embeddingClient) {
