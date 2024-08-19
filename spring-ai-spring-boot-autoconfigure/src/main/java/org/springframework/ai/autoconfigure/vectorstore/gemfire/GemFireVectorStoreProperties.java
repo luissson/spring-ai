@@ -22,6 +22,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 @ConfigurationProperties(GemFireVectorStoreProperties.CONFIG_PREFIX)
 public class GemFireVectorStoreProperties extends CommonVectorStoreProperties {

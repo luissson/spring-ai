@@ -23,6 +23,8 @@ import org.springframework.ai.vectorstore.GemFireVectorStore;
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 class GemFireVectorStorePropertiesTests {
 
@@ -33,7 +35,8 @@ class GemFireVectorStorePropertiesTests {
 		assertThat(props.getHost()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_HOST);
 		assertThat(props.getPort()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_PORT);
 		assertThat(props.getBeamWidth()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_BEAM_WIDTH);
-		assertThat(props.getMaxConnections()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_MAX_CONNECTIONS);
+		assertThat(props.getMaxConnections())
+			.isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_MAX_CONNECTIONS);
 		assertThat(props.getFields()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_FIELDS);
 		assertThat(props.getBuckets()).isEqualTo(GemFireVectorStore.GemFireVectorStoreConfig.DEFAULT_BUCKETS);
 	}

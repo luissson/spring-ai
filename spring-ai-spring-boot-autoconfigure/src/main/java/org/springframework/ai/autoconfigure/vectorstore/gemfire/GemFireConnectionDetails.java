@@ -19,6 +19,8 @@ import org.springframework.boot.autoconfigure.service.connection.ConnectionDetai
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 public interface GemFireConnectionDetails extends ConnectionDetails {
 

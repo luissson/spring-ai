@@ -48,6 +48,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 
 class GemFireVectorStoreAutoConfigurationIT {

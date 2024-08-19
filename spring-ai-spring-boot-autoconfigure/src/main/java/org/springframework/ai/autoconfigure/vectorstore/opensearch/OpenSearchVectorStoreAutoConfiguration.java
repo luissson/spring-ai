@@ -46,8 +46,7 @@ import software.amazon.awssdk.regions.Region;
 @AutoConfiguration
 @ConditionalOnClass({ OpenSearchVectorStore.class, EmbeddingModel.class, OpenSearchClient.class })
 @EnableConfigurationProperties(OpenSearchVectorStoreProperties.class)
-public class
-OpenSearchVectorStoreAutoConfiguration {
+public class OpenSearchVectorStoreAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(OpenSearchConnectionDetails.class)

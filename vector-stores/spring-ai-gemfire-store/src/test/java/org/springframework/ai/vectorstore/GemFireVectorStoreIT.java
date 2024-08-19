@@ -45,6 +45,8 @@ import org.springframework.core.io.DefaultResourceLoader;
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  * @since 1.0.0
  */
 public class GemFireVectorStoreIT {
@@ -209,7 +211,7 @@ public class GemFireVectorStoreIT {
 
 		@Bean
 		public GemFireVectorStore.GemFireVectorStoreConfig gemfireVectorStoreConfig() {
-			return new GemFireVectorStore.Builder().setHost("localhost")
+			return new GemFireVectorStore.GemFireVectorStoreConfig.Builder().setHost("localhost")
 				.setPort(HTTP_SERVICE_PORT)
 				.setIndexName(INDEX_NAME)
 				.build();

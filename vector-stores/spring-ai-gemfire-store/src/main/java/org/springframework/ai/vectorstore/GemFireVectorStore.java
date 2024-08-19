@@ -48,6 +48,8 @@ import reactor.util.annotation.NonNull;
  * deleting, and similarity searching of documents in a GemFire index.
  *
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 public class GemFireVectorStore implements VectorStore, InitializingBean {
 
@@ -553,106 +555,106 @@ public class GemFireVectorStore implements VectorStore, InitializingBean {
 		private GemFireVectorStoreConfig() {
 		}
 
-	}
-
-	/**
-	 * Start building a new configuration.
-	 * @return The entry point for creating a new configuration.
-	 */
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder {
-
-		// Create Index DEFAULT Values
-		String host = GemFireVectorStoreConfig.DEFAULT_HOST;
-
-		int port = GemFireVectorStoreConfig.DEFAULT_PORT;
-
-		String indexName = GemFireVectorStoreConfig.DEFAULT_INDEX_NAME;
-
-		int beamWidth = GemFireVectorStoreConfig.DEFAULT_BEAM_WIDTH;
-
-		int maxConnections = GemFireVectorStoreConfig.DEFAULT_MAX_CONNECTIONS;
-
-		String vectorSimilarityFunction = GemFireVectorStoreConfig.DEFAULT_SIMILARITY_FUNCTION;
-
-		String[] fields = GemFireVectorStoreConfig.DEFAULT_FIELDS;
-
-		int buckets = GemFireVectorStoreConfig.DEFAULT_BUCKETS;
-
-		boolean sslEnabled = GemFireVectorStoreConfig.DEFAULT_SSL_ENABLED;
-
-		public Builder setHost(String host) {
-			Assert.hasText(host, "host must have a value");
-			this.host = host;
-			return this;
+		/**
+		 * Start building a new configuration.
+		 * @return The entry point for creating a new configuration.
+		 */
+		public static Builder builder() {
+			return new Builder();
 		}
 
-		public Builder setPort(int port) {
-			Assert.isTrue(port > 0, "port must be positive");
-			this.port = port;
-			return this;
-		}
+		public static class Builder {
 
-		public Builder setSslEnabled(boolean sslEnabled) {
-			this.sslEnabled = sslEnabled;
-			return this;
-		}
+			// Create Index DEFAULT Values
+			String host = GemFireVectorStoreConfig.DEFAULT_HOST;
 
-		public Builder setIndexName(String indexName) {
-			Assert.hasText(indexName, "indexName must have a value");
-			this.indexName = indexName;
-			return this;
-		}
+			int port = GemFireVectorStoreConfig.DEFAULT_PORT;
 
-		public Builder setBeamWidth(int beamWidth) {
-			Assert.isTrue(beamWidth > 0, "beamWidth must be positive");
-			Assert.isTrue(beamWidth <= GemFireVectorStoreConfig.UPPER_BOUND_BEAM_WIDTH,
-					"beamWidth must be less than or equal to " + GemFireVectorStoreConfig.UPPER_BOUND_BEAM_WIDTH);
-			this.beamWidth = beamWidth;
-			return this;
-		}
+			String indexName = GemFireVectorStoreConfig.DEFAULT_INDEX_NAME;
 
-		public Builder setMaxConnections(int maxConnections) {
-			Assert.isTrue(maxConnections > 0, "maxConnections must be positive");
-			Assert.isTrue(maxConnections <= GemFireVectorStoreConfig.UPPER_BOUND_MAX_CONNECTIONS,
-					"maxConnections must be less than or equal to "
-							+ GemFireVectorStoreConfig.UPPER_BOUND_MAX_CONNECTIONS);
-			this.maxConnections = maxConnections;
-			return this;
-		}
+			int beamWidth = GemFireVectorStoreConfig.DEFAULT_BEAM_WIDTH;
 
-		public Builder setBuckets(int buckets) {
-			Assert.isTrue(buckets >= 0, "bucket must be 1 or more");
-			this.buckets = buckets;
-			return this;
-		}
+			int maxConnections = GemFireVectorStoreConfig.DEFAULT_MAX_CONNECTIONS;
 
-		public Builder setVectorSimilarityFunction(String vectorSimilarityFunction) {
-			Assert.hasText(vectorSimilarityFunction, "vectorSimilarityFunction must have a value");
-			this.vectorSimilarityFunction = vectorSimilarityFunction;
-			return this;
-		}
+			String vectorSimilarityFunction = GemFireVectorStoreConfig.DEFAULT_SIMILARITY_FUNCTION;
 
-		public Builder setFields(String[] fields) {
-			this.fields = fields;
-			return this;
-		}
+			String[] fields = GemFireVectorStoreConfig.DEFAULT_FIELDS;
 
-		public GemFireVectorStoreConfig build() {
-			GemFireVectorStoreConfig config = new GemFireVectorStoreConfig();
-			config.host = this.host;
-			config.port = this.port;
-			config.sslEnabled = this.sslEnabled;
-			config.indexName = this.indexName;
-			config.beamWidth = this.beamWidth;
-			config.maxConnections = this.maxConnections;
-			config.buckets = this.buckets;
-			config.vectorSimilarityFunction = this.vectorSimilarityFunction;
-			config.fields = this.fields;
-			return config;
+			int buckets = GemFireVectorStoreConfig.DEFAULT_BUCKETS;
+
+			boolean sslEnabled = GemFireVectorStoreConfig.DEFAULT_SSL_ENABLED;
+
+			public Builder setHost(String host) {
+				Assert.hasText(host, "host must have a value");
+				this.host = host;
+				return this;
+			}
+
+			public Builder setPort(int port) {
+				Assert.isTrue(port > 0, "port must be positive");
+				this.port = port;
+				return this;
+			}
+
+			public Builder setSslEnabled(boolean sslEnabled) {
+				this.sslEnabled = sslEnabled;
+				return this;
+			}
+
+			public Builder setIndexName(String indexName) {
+				Assert.hasText(indexName, "indexName must have a value");
+				this.indexName = indexName;
+				return this;
+			}
+
+			public Builder setBeamWidth(int beamWidth) {
+				Assert.isTrue(beamWidth > 0, "beamWidth must be positive");
+				Assert.isTrue(beamWidth <= GemFireVectorStoreConfig.UPPER_BOUND_BEAM_WIDTH,
+						"beamWidth must be less than or equal to " + GemFireVectorStoreConfig.UPPER_BOUND_BEAM_WIDTH);
+				this.beamWidth = beamWidth;
+				return this;
+			}
+
+			public Builder setMaxConnections(int maxConnections) {
+				Assert.isTrue(maxConnections > 0, "maxConnections must be positive");
+				Assert.isTrue(maxConnections <= GemFireVectorStoreConfig.UPPER_BOUND_MAX_CONNECTIONS,
+						"maxConnections must be less than or equal to "
+								+ GemFireVectorStoreConfig.UPPER_BOUND_MAX_CONNECTIONS);
+				this.maxConnections = maxConnections;
+				return this;
+			}
+
+			public Builder setBuckets(int buckets) {
+				Assert.isTrue(buckets >= 0, "bucket must be 1 or more");
+				this.buckets = buckets;
+				return this;
+			}
+
+			public Builder setVectorSimilarityFunction(String vectorSimilarityFunction) {
+				Assert.hasText(vectorSimilarityFunction, "vectorSimilarityFunction must have a value");
+				this.vectorSimilarityFunction = vectorSimilarityFunction;
+				return this;
+			}
+
+			public Builder setFields(String[] fields) {
+				this.fields = fields;
+				return this;
+			}
+
+			public GemFireVectorStoreConfig build() {
+				GemFireVectorStoreConfig config = new GemFireVectorStoreConfig();
+				config.host = this.host;
+				config.port = this.port;
+				config.sslEnabled = this.sslEnabled;
+				config.indexName = this.indexName;
+				config.beamWidth = this.beamWidth;
+				config.maxConnections = this.maxConnections;
+				config.buckets = this.buckets;
+				config.vectorSimilarityFunction = this.vectorSimilarityFunction;
+				config.fields = this.fields;
+				return config;
+			}
+
 		}
 
 	}

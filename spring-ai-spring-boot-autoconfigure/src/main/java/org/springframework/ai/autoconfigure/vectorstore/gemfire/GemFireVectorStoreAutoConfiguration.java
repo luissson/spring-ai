@@ -27,6 +27,8 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author Geet Rawat
+ * @author Jason Huynh
+ * @author Louis Jacome
  */
 @AutoConfiguration
 @ConditionalOnClass({ GemFireVectorStore.class, EmbeddingModel.class })
@@ -45,7 +47,7 @@ public class GemFireVectorStoreAutoConfiguration {
 	@ConditionalOnMissingBean
 	public GemFireVectorStore gemfireVectorStore(EmbeddingModel embeddingModel, GemFireVectorStoreProperties properties,
 			GemFireConnectionDetails gemFireConnectionDetails) {
-		var builder = new GemFireVectorStore.Builder();
+		var builder = new GemFireVectorStore.GemFireVectorStoreConfig.Builder();
 
 		builder.setHost(gemFireConnectionDetails.getHost())
 			.setPort(gemFireConnectionDetails.getPort())
@@ -56,7 +58,7 @@ public class GemFireVectorStoreAutoConfiguration {
 			.setVectorSimilarityFunction(properties.getVectorSimilarityFunction())
 			.setFields(properties.getFields())
 			.setSslEnabled(properties.isSslEnabled());
-		GemFireVectorStore vectorStore = new GemFireVectorStore(builder.build(), embeddingModel, properties.isInitializeSchema());
+		return new GemFireVectorStore(builder.build(), embeddingModel, properties.isInitializeSchema());
 	}
 
 	private static class PropertiesGemFireConnectionDetails implements GemFireConnectionDetails {
